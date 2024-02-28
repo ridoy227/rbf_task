@@ -51,14 +51,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   if (_homeController.notificationList.isEmpty) {
                     return const Center(child: CircularProgressIndicator());
                   } else {
-                    return ListView.builder(
+                    return ListView(
+                      shrinkWrap: true,
                       controller: _controller,
+
+                      children: [
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
                       itemCount: _homeController.notificationList.length,
                       itemBuilder: (context, index) {
                         final notification =
                             _homeController.notificationList[index];
                         return CustomNotificationTile(notification: notification,homeController: _homeController,);
                       },
+                    ),
+                    const SizedBox(height: 10,),
+                    if(_homeController.showLoading) const Center(child: CircularProgressIndicator(),),
+                    const SizedBox(height: 10,),
+
+                      ],
                     );
                   }
                 },
@@ -70,5 +82,3 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 }
-
-
